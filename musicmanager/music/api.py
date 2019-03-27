@@ -1,6 +1,6 @@
-from music.models import Album
+from music.models import Album, Song
 from rest_framework import viewsets, permissions
-from .serializers import AlbumSerializer
+from .serializers import AlbumSerializer, SongSerializer
 from django.http import HttpResponseRedirect
 
 # Album viewset
@@ -20,3 +20,10 @@ class AlbumViewSet(viewsets.ModelViewSet):
     #def perform_create(self, serializer):
     #    serializer.partial = True
     #    serializer.save()
+
+class SongViewSet(viewsets.ModelViewSet):
+    queryset = Song.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = SongSerializer
