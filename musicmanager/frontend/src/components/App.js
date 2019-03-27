@@ -13,6 +13,7 @@ class App extends React.Component{
         }
         this.showAlbums = this.showAlbums.bind(this)
         this.showSongs = this.showSongs.bind(this)
+        this.showArtists = this.showArtists.bind(this)
     }
 
     showAlbums(){
@@ -21,6 +22,10 @@ class App extends React.Component{
 
     showSongs(){
         this.setState({show:"Songs"})
+    }
+
+    showArtists(){
+        this.setState({show:"Artists"})
     }
 
     render(){
@@ -44,6 +49,10 @@ class App extends React.Component{
                             
                             <li className={"nav-item " + (this.state.show==="Songs" ? "active" : "")}>
                                 <a className="nav-link" href="#" onClick={this.showSongs}>Songs</a>
+                            </li>
+
+                            <li className={"nav-item " + (this.state.show==="Artists" ? "active" : "")}>
+                                <a className="nav-link" href="#" onClick={this.showArtists}>Artists</a>
                             </li>
                             
                             </ul>
