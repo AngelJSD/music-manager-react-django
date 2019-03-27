@@ -38,12 +38,12 @@ class Album extends React.Component{
                             <h5 className="text-center">
                                 {//Artist: <br/>
                                 }
-                                <span className="badge badge-primary mr-1">
+                                <span className="badge badge-secondary mr-1">
                                     {this.props.album.artist}
                                 </span> 
                                 {//Published at:<br/>
                                 }
-                                <span className="badge badge-primary mr-1">
+                                <span className="badge badge-secondary mr-1">
                                     {this.props.album.published_at}
                                 </span> 
                                 

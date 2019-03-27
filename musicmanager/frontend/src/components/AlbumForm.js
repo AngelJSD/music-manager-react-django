@@ -14,6 +14,7 @@ class AlbumForm extends React.Component{
         }
         this.handleChange=this.handleChange.bind(this)
         this.handleSubmit=this.handleSubmit.bind(this)
+        this.handleClose=this.handleClose.bind(this)
     }
 
     handleChange(event){
@@ -35,6 +36,17 @@ class AlbumForm extends React.Component{
         else{
             this.setState({[event.target.name]: event.target.value})
         }
+    }
+
+    handleClose(){
+        this.setState({
+            title: "",
+            artist: "",
+            published_at: "",
+            image: null,
+            image_preview: null
+        })
+        this.props.handleClose("Album")
     }
     
     handleSubmit(){
@@ -125,13 +137,20 @@ class AlbumForm extends React.Component{
                                     </div>
 
                                     
-                                    <div className="form-group col-sm-12">
+                                    <div className="form-group">
                                         <button
                                             className="btn btn-primary listing-button"
                                             type="submit"
                                             //onClick={this.handleSubmit}
                                         >
                                             Add
+                                        </button>
+                                        <button
+                                            className="btn btn-danger listing-button ml-1"
+                                            onClick={this.handleClose}
+                                            //onClick={this.handleSubmit}
+                                        >
+                                            Cancel
                                         </button>
                                     </div>
                                 </div>                                

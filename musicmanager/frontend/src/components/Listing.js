@@ -12,9 +12,13 @@ class Listing extends React.Component{
         super()
         this.state = {
             albums: [],
-            songs: []
+            songs: [],
+            showAlbumForm: false,
+            showSongForm: false,
         }
         this.newAlbum = this.newAlbum.bind(this)
+        this.handleClick = this.handleClick.bind(this)
+        this.handleClose = this.handleClose.bind(this)
     }
 
     componentDidMount(){
@@ -37,8 +41,27 @@ class Listing extends React.Component{
         })
     }
 
+
     newAlbum(){
         window.location.reload()
+    }
+
+    handleClick(event){
+        if(event.target.name === "newAlbum"){
+            this.setState({showAlbumForm: true})
+        }
+        else if(event.target.name === "newSong"){
+            this.setState({showSongForm: true})
+        }
+    }
+
+    handleClose(formName){
+        if(formName==="Album"){
+            this.setState({showAlbumForm: false})
+        }
+        else if(formName==="Song"){
+            this.setState({showSongForm: false})
+        }
     }
 
     render(){
@@ -52,9 +75,20 @@ class Listing extends React.Component{
         })
         return(
             <div className="container">
-                <SongForm albums={this.state.albums} newSong={this.newAlbum}/>
-                <AlbumForm newAlbum={this.newAlbum}/>
-                <div className="row">
+                {this.state.showSongForm && this.props.show === "Songs" && <SongForm handleClose={this.handleClose} albums={this.state.albums} newSong={this.newAlbum}/>}
+                {this.state.showAlbumForm && this.props.show === "Albums" && <AlbumForm  handleClose={this.handleClose} newAlbum={this.newAlbum}/>}
+                {this.props.show === "Songs" && <div className="row mt-3">
+                    <div className="col-sm-12">
+                        
+                        <div className="float-left">
+                        <h4>Songs</h4>
+                        </div>
+                        <div className="float-right">
+                            <h5><button className="btn-primary listing-button" name="newSong" onClick={this.handleClick}>New Song</button>
+                            </h5>
+                        </div>
+                        
+                    </div>
                     <div className="col-sm-12 mt-3">
                         <div className="card text-white bg-light mb-3">
                         <table class="table text-white">
@@ -73,10 +107,23 @@ class Listing extends React.Component{
                         </table>
                         </div>
                     </div>
-                </div>
-                <div className="row">
+                </div>}
+
+                {this.props.show === "Albums" &&<div className="row mt-3">
+                    <div className="col-sm-12">
+                    
+                        <div className="float-left">
+                        <h4>Albums</h4>
+                        </div>
+                        <div className="float-right">
+                            <h5><button className="btn-primary listing-button" name="newAlbum" onClick={this.handleClick}>New Album</button>
+                            </h5>
+                        </div>
+                        
+                    </div>
+                    
                     {showAlbums}
-                </div>
+                </div>}
                 
             </div>
             
