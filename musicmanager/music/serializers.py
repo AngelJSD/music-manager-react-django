@@ -3,7 +3,7 @@ from music.models import Album, Song, Artist
 
 # Album serializer
 class AlbumSerializer(serializers.ModelSerializer):
-    published_at = serializers.DateTimeField(format="%Y-%m-%d")
+    #published_at = serializers.DateTimeField(format="%Y-%m-%d")
     class Meta:
         model = Album
         fields = '__all__'

@@ -28,10 +28,10 @@ class AlbumForm extends React.Component{
             reader.readAsDataURL(event.target.files[0])
         }
         else if(event.target.name==="date"){
-            let myDate = new Date(new Date(event.target.value).toString().split('GMT')[0]+' UTC').toISOString().split('.')[0]
+            //let myDate = new Date(new Date(event.target.value).toString().split('GMT')[0]+' UTC').toISOString().split('.')[0]
             
-            console.log(myDate)
-            this.setState({published_at: myDate})
+            console.log(event.target.value)
+            this.setState({published_at: event.target.value})
         }
         else{
             this.setState({[event.target.name]: event.target.value})

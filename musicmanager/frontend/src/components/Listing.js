@@ -55,7 +55,7 @@ class Listing extends React.Component{
 
 
     newAlbum(){
-        this.componentDidMount()
+        
         window.location.reload()
     }
 
