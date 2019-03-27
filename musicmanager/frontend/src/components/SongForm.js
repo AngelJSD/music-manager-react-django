@@ -13,17 +13,20 @@ class SongForm extends React.Component{
             sec: ""
             
         }
+        // Binding 'this' to prevent 'undefined' error
         this.handleChange=this.handleChange.bind(this)
         this.handleSubmit=this.handleSubmit.bind(this)
         this.handleClose=this.handleClose.bind(this)
     }
 
+    // Handling onChange of any input
     handleChange(event){
 
         this.setState({[event.target.name]: event.target.value})
     
     }
 
+    // handleClose: reset state and call handleClose of the parent component
     handleClose(){
         this.setState({
             title: "",
@@ -36,26 +39,39 @@ class SongForm extends React.Component{
         this.props.handleClose("Song")
     }
 
+    // Handling onSubmit of the form
     handleSubmit(){
 
+        // Prevent the page to refresh
         event.preventDefault();
+
+        // Creating a FormData
         let formData = new FormData();
+
+        // Doing simple validation
         if(this.state.title!== "" &&
             this.state.album!=="" && 
             this.state.hr!=="" && 
             this.state.min!=="" && 
             this.state.sec!==""
-        ){
+        ){  
+            // Filling formData
             formData.append('title',this.state.title)
             formData.append('album',this.state.album)
             formData.append('duration',this.state.hr + ":" +this.state.min + ":" +this.state.sec)
+            
+            // Doing POST
             fetch('http://127.0.0.1:8000/api/songs/', {
                 method: 'POST',
                 headers: {
                 Accept: 'application/json, text/plain, */*',
                 },
+                // Passing formData as the body
                 body:formData,
-            }).then(this.props.newSong())
+            }).then(
+                // Reloading the page using a function of the parent component
+                this.props.newSong()
+            )
             .catch(err => console.log(err))
         }
         else{
@@ -66,9 +82,11 @@ class SongForm extends React.Component{
 
     render(){
         
+        // Creating an array of options with the albums in the database
         let albumOptions = this.props.albums.map(album =>{
             return <option key={album.id} value={album.title}>{album.title}</option>
         })
+        // Adding default value at the begining of the array
         albumOptions = [<option value="">Album</option>, ...albumOptions]
         
         return(
@@ -155,7 +173,6 @@ class SongForm extends React.Component{
                                 <button
                                     className="btn btn-primary listing-button"
                                     type="submit"
-                                    //onClick={this.handleSubmit}
                                 >
                                     Add
                                 </button>
@@ -163,7 +180,6 @@ class SongForm extends React.Component{
                                     type="button"
                                     className="btn btn-danger listing-button ml-1"
                                     onClick={this.handleClose}
-                                    //onClick={this.handleSubmit}
                                 >
                                     Cancel
                                 </button>

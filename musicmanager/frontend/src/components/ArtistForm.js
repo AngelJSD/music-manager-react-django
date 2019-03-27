@@ -9,17 +9,20 @@ class ArtistForm extends React.Component{
             name: "",
             
         }
+        // Binding 'this' to prevent 'undefined' error
         this.handleChange=this.handleChange.bind(this)
         this.handleSubmit=this.handleSubmit.bind(this)
         this.handleClose=this.handleClose.bind(this)
     }
 
+    // Handling onChange of any input
     handleChange(event){
 
         this.setState({[event.target.name]: event.target.value})
     
     }
 
+    // handleClose: reset state and call handleClose of the parent component
     handleClose(){
         this.setState({
             name: "",
@@ -28,20 +31,33 @@ class ArtistForm extends React.Component{
         this.props.handleClose("Artist")
     }
 
+    // Handling onSubmit of the form
     handleSubmit(){
 
+        // Prevent the page to refresh
         event.preventDefault();
+
+        // Creating a FormData
         let formData = new FormData();
+
+        // Doing simple validation
         if(this.state.name!== ""
         ){
+            // Filling formData
             formData.append('name',this.state.name)
+
+            // Doing POST
             fetch('http://127.0.0.1:8000/api/artists/', {
                 method: 'POST',
                 headers: {
                 Accept: 'application/json, text/plain, */*',
                 },
+                // Passing formData as the body
                 body:formData,
-            }).then(this.props.newArtist())
+            }).then(
+                // Reloading the page using a function of the parent component
+                this.props.newArtist()
+            )
             .catch(err => console.log(err))
         }
         else{
@@ -83,7 +99,6 @@ class ArtistForm extends React.Component{
                                 <button
                                     className="btn btn-primary listing-button"
                                     type="submit"
-                                    //onClick={this.handleSubmit}
                                 >
                                     Add
                                 </button>
@@ -91,7 +106,6 @@ class ArtistForm extends React.Component{
                                     type="button"
                                     className="btn btn-danger listing-button ml-1"
                                     onClick={this.handleClose}
-                                    //onClick={this.handleSubmit}
                                 >
                                     Cancel
                                 </button>

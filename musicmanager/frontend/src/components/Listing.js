@@ -20,13 +20,16 @@ class Listing extends React.Component{
             showSongForm: false,
             showArtistForm: false
         }
-        this.newAlbum = this.newAlbum.bind(this)
+
+        // Binding 'this' to prevent 'undefined' error
+        this.reloadPage = this.reloadPage.bind(this)
         this.handleClick = this.handleClick.bind(this)
         this.handleClose = this.handleClose.bind(this)
     }
 
     componentDidMount(){
-
+        
+        // Fetching all the albums
         fetch("http://127.0.0.1:8000/api/albums/")
         .then(response =>{
             return response.json()
@@ -35,6 +38,7 @@ class Listing extends React.Component{
             console.log(data)
             this.setState({albums: data})
         })
+        // Fetching all the songs
         fetch("http://127.0.0.1:8000/api/songs/")
         .then(response =>{
             return response.json()
@@ -43,6 +47,7 @@ class Listing extends React.Component{
             console.log(data)
             this.setState({songs: data})
         })
+        // Fetching all the artists
         fetch("http://127.0.0.1:8000/api/artists/")
         .then(response =>{
             return response.json()
@@ -53,12 +58,13 @@ class Listing extends React.Component{
         })
     }
 
-
-    newAlbum(){
+    // Reload all components
+    reloadPage(){
         
         window.location.reload()
     }
 
+    // Handle what form to show
     handleClick(event){
         if(event.target.name === "newAlbum"){
             this.setState({showAlbumForm: true})
@@ -71,6 +77,7 @@ class Listing extends React.Component{
         }
     }
 
+    // Handle what form to close
     handleClose(formName){
         if(formName==="Album"){
             this.setState({showAlbumForm: false})
@@ -85,22 +92,32 @@ class Listing extends React.Component{
 
     render(){
         
+        // Creating an array of 'Song' components
         const showSongs = this.state.songs.map(song =>{
             return <Song key={song.id} song={song}/>
         })
 
+        // Creating an array of 'Album' components
         const showAlbums = this.state.albums.map(album =>{
             return <Album key={album.id} album={album}/>
         })
 
+        // Creating an array of 'Artists' components
         const showArtists = this.state.artists.map(artist =>{
             return <Artist key={artist.id} artist={artist}/>
         })
         return(
             <div className="container">
-                {this.state.showArtistForm && this.props.show === "Artists" && <ArtistForm handleClose={this.handleClose} newArtist={this.newAlbum}/>}
-                {this.state.showSongForm && this.props.show === "Songs" && <SongForm handleClose={this.handleClose} albums={this.state.albums} newSong={this.newAlbum}/>}
-                {this.state.showAlbumForm && this.props.show === "Albums" && <AlbumForm artists={this.state.artists}  handleClose={this.handleClose} newAlbum={this.newAlbum}/>}
+                {
+                // Show a form only if the corresponding attribute in state is true and the navigation is in the correct nav-item (this.props.show)
+                }
+                {this.state.showArtistForm && this.props.show === "Artists" && <ArtistForm handleClose={this.handleClose} newArtist={this.reloadPage}/>}
+                {this.state.showSongForm && this.props.show === "Songs" && <SongForm handleClose={this.handleClose} albums={this.state.albums} newSong={this.reloadPage}/>}
+                {this.state.showAlbumForm && this.props.show === "Albums" && <AlbumForm artists={this.state.artists}  handleClose={this.handleClose} newAlbum={this.reloadPage}/>}
+                
+                {
+                // Show a component according to the navigation bar nav-item (this.props.show)
+                }
                 {this.props.show === "Songs" && <div className="row mt-3">
                     <div className="col-sm-12">
                         

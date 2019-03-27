@@ -12,32 +12,41 @@ class AlbumForm extends React.Component{
             image: null,
             image_preview: null
         }
+        // Binding 'this' to prevent 'undefined' error
         this.handleChange=this.handleChange.bind(this)
         this.handleSubmit=this.handleSubmit.bind(this)
         this.handleClose=this.handleClose.bind(this)
     }
 
+    // Handling onChange of any input
     handleChange(event){
 
+        // If the imput is an image
         if(event.target.name==="image"){
+            
+            // Get the image and save it in the state
             this.setState({image: event.target.files[0]})
+            
+            // Set image_preview when the image has finished to load
             let reader = new FileReader()
             reader.onload = function (e) {
                 this.setState({image_preview: e.target.result})
             }.bind(this)
             reader.readAsDataURL(event.target.files[0])
         }
+        // If the imput is a date
         else if(event.target.name==="date"){
-            //let myDate = new Date(new Date(event.target.value).toString().split('GMT')[0]+' UTC').toISOString().split('.')[0]
             
             console.log(event.target.value)
             this.setState({published_at: event.target.value})
         }
+        // If the imput is of any other type
         else{
             this.setState({[event.target.name]: event.target.value})
         }
     }
 
+    // handleClose: reset state and call handleClose of the parent component
     handleClose(){
         this.setState({
             title: "",
@@ -49,26 +58,39 @@ class AlbumForm extends React.Component{
         this.props.handleClose("Album")
     }
     
+    // Handling onSubmit of the form
     handleSubmit(){
 
+        // Prevent the page to refresh
         event.preventDefault();
+
+        // Creating a FormData
         let formData = new FormData();
+
+        // Doing simple validation
         if(this.state.title!== "" &&
             this.state.artist!=="" && 
             this.state.published_at!=="" && 
             this.state.image!==null
-        ){
+        ){  
+            // Filling formData
             formData.append('title',this.state.title)
             formData.append('artist',this.state.artist)
             formData.append('published_at',this.state.published_at)
             formData.append('image',this.state.image)
+
+            // Doing POST
             fetch('http://127.0.0.1:8000/api/albums/', {
                 method: 'POST',
                 headers: {
                 Accept: 'application/json, text/plain, */*',
                 },
+                // Passing formData as the body
                 body:formData,
-            }).then(this.props.newAlbum())
+            }).then(
+                // Reloading the page using a function of the parent component
+                this.props.newAlbum()
+            )
             .catch(err => console.log(err))
         }
         
@@ -76,9 +98,11 @@ class AlbumForm extends React.Component{
 
     render(){
         
+        // Creating an array of options with the artists in the database
         let artistsOptions = this.props.artists.map(artist =>{
             return <option key={artist.id} value={artist.name}>{artist.name}</option>
         })
+        // Adding default value at the begining of the array
         artistsOptions = [<option value="">Artist</option>, ...artistsOptions]
         
         return(
@@ -122,7 +146,6 @@ class AlbumForm extends React.Component{
                                         <input
                                             type="date"
                                             name="date"
-                                            //ref={(input) => { this.inpuElement = input; }}
                                             onChange={this.handleChange}
                                             required
                                         /><br/>
@@ -133,7 +156,6 @@ class AlbumForm extends React.Component{
                                             type="file"
                                             name="image"
                                             multiple={false}
-                                            //ref={(input) => { this.inpuElement = input; }}
                                             accept=".jpg,.jpeg,.png"
                                             onChange={this.handleChange}
                                             required
@@ -145,7 +167,6 @@ class AlbumForm extends React.Component{
                                         <button
                                             className="btn btn-primary listing-button"
                                             type="submit"
-                                            //onClick={this.handleSubmit}
                                         >
                                             Add
                                         </button>
@@ -153,7 +174,6 @@ class AlbumForm extends React.Component{
                                             type="button"
                                             className="btn btn-danger listing-button ml-1"
                                             onClick={this.handleClose}
-                                            //onClick={this.handleSubmit}
                                         >
                                             Cancel
                                         </button>
