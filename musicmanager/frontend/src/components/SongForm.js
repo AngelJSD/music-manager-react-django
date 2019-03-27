@@ -67,7 +67,7 @@ class SongForm extends React.Component{
     render(){
         
         let albumOptions = this.props.albums.map(album =>{
-            return <option value={album.title}>{album.title}</option>
+            return <option key={album.id} value={album.title}>{album.title}</option>
         })
         albumOptions = [<option value="">Album</option>, ...albumOptions]
         
@@ -160,6 +160,7 @@ class SongForm extends React.Component{
                                     Add
                                 </button>
                                 <button
+                                    type="button"
                                     className="btn btn-danger listing-button ml-1"
                                     onClick={this.handleClose}
                                     //onClick={this.handleSubmit}

@@ -1,6 +1,6 @@
-from music.models import Album, Song
+from music.models import Album, Song, Artist
 from rest_framework import viewsets, permissions
-from .serializers import AlbumSerializer, SongSerializer
+from .serializers import AlbumSerializer, SongSerializer, ArtistSerializer
 from django.http import HttpResponseRedirect
 
 # Album viewset
@@ -27,3 +27,10 @@ class SongViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = SongSerializer
+
+class ArtistViewSet(viewsets.ModelViewSet):
+    queryset = Artist.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = ArtistSerializer

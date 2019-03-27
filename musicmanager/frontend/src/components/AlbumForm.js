@@ -76,6 +76,10 @@ class AlbumForm extends React.Component{
 
     render(){
         
+        let artistsOptions = this.props.artists.map(artist =>{
+            return <option key={artist.id} value={artist.name}>{artist.name}</option>
+        })
+        artistsOptions = [<option value="">Artist</option>, ...artistsOptions]
         
         return(
             <div className="card mt-3">
@@ -103,15 +107,15 @@ class AlbumForm extends React.Component{
                                     </div>
                                     <div className="form-group col-sm-12">
                                         <label>Artist</label>
-                                        <input
-                                            type="text"
+                                        <select
                                             className="form-control"
-                                            placeholder="Artist"
                                             name="artist"
                                             value={this.state.artist}
                                             onChange={this.handleChange}
                                             required
-                                        />
+                                        >
+                                            {artistsOptions}
+                                        </select>
                                     </div>
                                     <div className="form-group col-sm-12">
                                         <label>Published at</label><br/>
@@ -146,6 +150,7 @@ class AlbumForm extends React.Component{
                                             Add
                                         </button>
                                         <button
+                                            type="button"
                                             className="btn btn-danger listing-button ml-1"
                                             onClick={this.handleClose}
                                             //onClick={this.handleSubmit}

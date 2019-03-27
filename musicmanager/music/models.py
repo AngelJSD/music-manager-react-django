@@ -13,3 +13,7 @@ class Song(models.Model):
     album = models.CharField(max_length=100)
     duration = models.TimeField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+class Artist(models.Model):
+    name = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
