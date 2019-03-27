@@ -10,6 +10,8 @@
 
 * Install Python dependencies: `pipenv install` or `python3 -m pipenv install`
 * Install Javascript dependencies: `npm i`
+* Migrate: `pipenv run python ./musicmanager/manage.py migrate`
+* Launch app: `pipenv run python ./musicmanager/manage.py runserver`
 
 ## Technologies:
 
