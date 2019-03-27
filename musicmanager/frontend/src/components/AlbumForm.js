@@ -56,7 +56,7 @@ class AlbumForm extends React.Component{
                 Accept: 'application/json, text/plain, */*',
                 },
                 body:formData,
-            }).then(/*this.props.newAlbum()*/)
+            }).then(this.props.newAlbum())
             .catch(err => console.log(err))
         }
         

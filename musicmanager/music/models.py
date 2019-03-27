@@ -7,3 +7,9 @@ class Album(models.Model):
     published_at = models.DateTimeField()
     image = models.ImageField(upload_to='images')
     created_at = models.DateTimeField(auto_now_add=True)
+
+class Song(models.Model):
+    title = models.CharField(max_length=100)
+    album = models.CharField(max_length=100)
+    duration = models.TimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
