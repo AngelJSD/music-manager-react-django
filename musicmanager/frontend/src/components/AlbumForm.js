@@ -80,7 +80,7 @@ class AlbumForm extends React.Component{
             formData.append('image',this.state.image)
 
             // Doing POST
-            fetch('http://127.0.0.1:8000/api/albums/', {
+            fetch('/api/albums/', {
                 method: 'POST',
                 headers: {
                 Accept: 'application/json, text/plain, */*',

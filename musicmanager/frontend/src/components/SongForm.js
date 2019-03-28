@@ -61,7 +61,7 @@ class SongForm extends React.Component{
             formData.append('duration',this.state.hr + ":" +this.state.min + ":" +this.state.sec)
             
             // Doing POST
-            fetch('http://127.0.0.1:8000/api/songs/', {
+            fetch('/api/songs/', {
                 method: 'POST',
                 headers: {
                 Accept: 'application/json, text/plain, */*',

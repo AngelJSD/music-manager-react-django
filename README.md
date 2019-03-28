@@ -12,9 +12,10 @@
 * Install Javascript dependencies: `npm i`
 * Migrate: `pipenv run python ./musicmanager/manage.py migrate`
 * Launch app: `pipenv run python ./musicmanager/manage.py runserver`
+* Head over http://127.0.0.1:8000/
 
 ## Technologies:
 
 * Frontend: React
 * Backend: Django + Django Rest Framework
-* 
+* Extra: Babel, Webpack, Bootstrap 4

@@ -30,7 +30,7 @@ class Listing extends React.Component{
     componentDidMount(){
         
         // Fetching all the albums
-        fetch("http://127.0.0.1:8000/api/albums/")
+        fetch("/api/albums/")
         .then(response =>{
             return response.json()
         })
@@ -39,7 +39,7 @@ class Listing extends React.Component{
             this.setState({albums: data})
         })
         // Fetching all the songs
-        fetch("http://127.0.0.1:8000/api/songs/")
+        fetch("/api/songs/")
         .then(response =>{
             return response.json()
         })
@@ -48,7 +48,7 @@ class Listing extends React.Component{
             this.setState({songs: data})
         })
         // Fetching all the artists
-        fetch("http://127.0.0.1:8000/api/artists/")
+        fetch("/api/artists/")
         .then(response =>{
             return response.json()
         })

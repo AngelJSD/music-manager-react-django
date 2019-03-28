@@ -47,7 +47,7 @@ class ArtistForm extends React.Component{
             formData.append('name',this.state.name)
 
             // Doing POST
-            fetch('http://127.0.0.1:8000/api/artists/', {
+            fetch('/api/artists/', {
                 method: 'POST',
                 headers: {
                 Accept: 'application/json, text/plain, */*',
